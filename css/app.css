@@ -1,0 +1,73 @@
+.red { background-color: #db2556 }
+.orange { background-color: orange }
+.yellow { background-color: #ded910 }
+.green { background-color: #7db31b }
+.blue { background-color: #3f8adb }
+.violet { background-color: #750965 }
+
+html, body, #main {
+	height: 100%;
+}
+body {
+	margin: 0;
+	font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-weight: 300;
+}
+.game-wrapper {
+	height: 100%;
+	transition: background-color 0.5s;
+}
+.game {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+.flood {
+	width: 424px;
+	height: 600px;
+}
+.flood-board {
+	border: 2px solid white;
+	box-shadow: 0 0 20px white;
+}
+.flood-status {
+	margin-top: 20px;
+	font-size: 21px;
+	font-weight: 400;
+	color: white;
+}
+.flood-status-button {
+	float: right;
+	height: 21px;
+	cursor: pointer;
+}
+.flood-row {
+	width: 420px;
+	height: 30px;
+}
+.flood-element {
+	display: inline-block;
+	height: 30px;
+	width: 30px;
+	cursor: pointer;
+	box-shadow: inset 0px 0px 10px rgba(255,255,255,0.2);
+	transition: all 0.1s;
+}
+.flood-element:active {
+	box-shadow: inset 0px 0px 15px rgba(255,255,255,0.4);
+}
+.red-text {
+	color: darkred;
+}
+
+@media screen and (max-height: 620px)  {
+	.game-wrapper {
+		height: 620px;
+	}
+	.game {
+		margin-top: 20px;
+	}
+}
