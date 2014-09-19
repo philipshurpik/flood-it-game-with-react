@@ -17,7 +17,7 @@ app.Flood = (function(localStorage) {
 	};
 
 	function createTable(dimension) {
-		var table = new Array(dimension);
+		table = new Array(dimension);
 		for (var i = 0; i < dimension; i++) {
 			table[i] = new Array(dimension);
 			for (var j = 0; j < dimension; j++) {
@@ -28,6 +28,7 @@ app.Flood = (function(localStorage) {
 			}
 		}
 		table[0][0].isCaught = true;
+		catchNew(table[0][0].color);
 		return table;
 	}
 
@@ -36,8 +37,7 @@ app.Flood = (function(localStorage) {
 		localStorage.setItem('floodTable', JSON.stringify(table));
 	}
 
-	function catchNew(row, col, newColor) {
-		var caughtElements = 0;
+	function catchNew(newColor) {
 		for (var i = 0; i < dimension; i++) {
 			for (var j = 0; j < dimension; j++) {
 				if (table[i][j].isCaught) {
@@ -66,10 +66,14 @@ app.Flood = (function(localStorage) {
 						}
 					}
 					table[i][j].color = newColor;
-					caughtElements++;
 				}
 			}
 		}
+		var caughtElements = table.reduce(function(sum, row) {
+			return sum + row.reduce(function(sum, item) {
+				return sum + (item.isCaught ? 1 : 0);
+			}, 0);
+		}, 0);
 		return caughtElements;
 	}
 
@@ -101,7 +105,7 @@ app.Flood = (function(localStorage) {
 	function makeMove(row, col) {
 		var newColor = table[row][col].color;
 		if (newColor !== state.currentColor) {
-			var caughtElements = catchNew(row, col, newColor);
+			var caughtElements = catchNew(newColor);
 			state.currentColor = newColor;
 			state.step++;
 			if (caughtElements === dimension * dimension) {
